@@ -1,0 +1,32 @@
+{
+	"name": "@anima-labs/schemas",
+	"version": "0.1.0",
+	"type": "module",
+	"description": "Shared Zod schemas for the Anima platform",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/anima-labs-ai/schemas.git"
+	},
+	"homepage": "https://github.com/anima-labs-ai/schemas",
+	"bugs": {
+		"url": "https://github.com/anima-labs-ai/schemas/issues"
+	},
+	"exports": {
+		".": "./src/index.ts"
+	},
+	"main": "src/index.ts",
+	"types": "src/index.ts",
+	"scripts": {
+		"typecheck": "tsc --noEmit",
+		"build": "tsup src/index.ts --format esm,cjs --dts",
+		"test": "bun test"
+	},
+	"dependencies": {
+		"zod": "^3.24.0"
+	},
+	"devDependencies": {
+		"tsup": "^8.0.0",
+		"typescript": "^5.7.0"
+	}
+}
