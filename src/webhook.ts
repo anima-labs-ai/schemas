@@ -12,7 +12,6 @@ export const WebhookEventSchema = z.enum([
 	"agent.deleted",
 	"phone.provisioned",
 	"phone.released",
-	"invoice.detected",
 ]);
 
 export const CreateWebhookInput = z.object({
@@ -37,6 +36,9 @@ export const WebhookOutput = z.object({
 	events: z.array(WebhookEventSchema),
 	active: z.boolean(),
 	description: z.string().nullable(),
+	consecutiveFailures: z.number().int().nonnegative(),
+	disabledReason: z.string().nullable(),
+	disabledAt: z.string().datetime().nullable(),
 	createdAt: z.string().datetime(),
 	updatedAt: z.string().datetime(),
 });
@@ -75,4 +77,20 @@ export const WebhookDeliveryListInput = PaginationInput.extend({
 export const WebhookDeliveryListOutput = z.object({
 	items: z.array(WebhookDeliveryOutput),
 	pagination: CursorPagination,
+});
+
+export const ReenableWebhookInput = z.object({
+	id: z.string().cuid2(),
+});
+
+export const WebhookStatsInput = z.object({
+	id: z.string().cuid2(),
+});
+
+export const WebhookStatsOutput = z.object({
+	totalDeliveries: z.number().int().nonnegative(),
+	succeeded: z.number().int().nonnegative(),
+	failed: z.number().int().nonnegative(),
+	pending: z.number().int().nonnegative(),
+	successRate: z.number().min(0).max(100),
 });
